@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Step 5: Keep prompting until valid
+
+if [ $# -ge 1 ] && [[ $1 =~ ^[0-9]+$ ]] && [ "$1" -gt 1 ]; then
+  max=$1
+else
+  while true; do
+    read -rp "Enter a number greater than 1: " max
+    if [[ $max =~ ^[0-9]+$ ]] && [ "$max" -gt 1 ]; then
+      break
+    fi
+    echo "Invalid input. Try again."
+  done
+fi
+
+n=$((RANDOM % max + 1))
+echo "You rolled a $n"
+

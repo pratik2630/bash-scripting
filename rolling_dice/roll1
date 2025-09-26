@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Step 1: Roll a random number between 1 and 20
+n=$((RANDOM % 20 + 1))
+echo "You rolled a $n"

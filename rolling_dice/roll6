@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Step 6: Two args = dice count & sides
+
+is_int() {
+  [[ $1 =~ ^[0-9]+$ ]]
+}
+
+prompt_values() {
+  while true; do
+read -rp "Enter number of dice (>=1): " dice
+    read -rp "Enter number of sides (>=2): " sides
+    if is_int "$dice" && [ "$dice" -ge 1 ] && is_int "$sides" && [ "$sides" -ge 2 ]; then
+      break
+    fi
+    echo "Invalid input. Try again."
+  done
+}
+
+if [ $# -eq 2 ] && is_int "$1" && [ "$1" -ge 1 ] && is_int "$2" && [ "$2" -ge 2 ]; then
+  dice=$1
+  sides=$2
+else
+  prompt_values
+fi
+
+for ((i=1; i<=dice; i++)); do
+  roll=$((RANDOM % sides + 1))
+  echo "Die $i rolled a $roll"
+done
+

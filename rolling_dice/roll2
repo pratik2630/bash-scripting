@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Step 2: Prompt for max number
+
+read -rp "Enter a maximum number: " max
+
+if ! [[ $max =~ ^[0-9]+$ ]] || [ "$max" -lt 1 ]; then
+  echo "Error: please enter a number >= 1"
+  exit 1
+fi
+
+n=$((RANDOM % max + 1))
+echo "You rolled a $n"
