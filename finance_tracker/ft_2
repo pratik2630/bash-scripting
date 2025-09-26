@@ -1,0 +1,91 @@
+#!/bin/bash
+
+FINANCE_FILE="$HOME/.finances"
+
+# -------------------------------
+# Function: User Guide
+# -------
+
+user_guide() {
+    echo -e "\e[1mFinance Tracker - User Guide\e[0m"
+    echo -e "===================================="
+    echo ""
+    echo -e "\e[1mUsage:\e[0m"
+    echo "  ft <action> [record]"
+    echo ""
+    echo -e "\e[1mActions:\e[0m"
+    echo -e "  \e[32madd\e[0m    <record>    Add a new record (example: \"Chipotle -12.50\")"
+    echo -e "  \e[32mremove\e[0m <record>    Remove a record by description"
+    echo -e "  \e[32mview\e[0m               View all records"
+    echo -e "  \e[32mclear\e[0m              Remove all records (confirmation required)"
+    echo -e "  \e[32mhelp\e[0m               Show this guide"
+    echo ""
+    echo -e "\e[1mExamples:\e[0m"
+    echo "  ft add \"Starbucks -5.75\""
+    echo "  ft remove \"Starbucks -5.75\""
+    echo "  ft view"
+    echo "  ft clear"
+    echo "  ft help"
+    echo ""
+}
+
+
+# -------------------------------
+# Main Logic
+# -------------------------------
+action="$1"
+record="$2"
+
+case "$action" in
+    add)
+        if [ -z "$record" ]; then
+            read -p "Enter record description: " record
+        fi
+        echo "$record" >> "$FINANCE_FILE"
+        echo "Record added: $record"
+        ;;
+
+    remove)
+        if [ -z "$record" ]; then
+            read -p "Enter record description to remove: " record
+        fi
+        if grep -Fxq "$record" "$FINANCE_FILE" 2>/dev/null; then
+            grep -Fxv "$record" "$FINANCE_FILE" > "${FINANCE_FILE}.tmp" && mv "${FINANCE_FILE}.tmp" "$FINANCE_FILE"
+            echo "Record removed: $record"
+        else
+            echo "Record not found: $record"
+        fi
+        ;;
+
+    view)
+        if [ -f "$FINANCE_FILE" ]; then
+            echo "---------------------------------------"
+            echo " Your Finance Records"
+            echo "---------------------------------------"
+            cat "$FINANCE_FILE"
+            echo "---------------------------------------"
+        else
+            echo "No records found."
+        fi
+        ;;
+
+    clear)
+        read -p "Are you sure you want to clear all records? (y/n): " confirm
+        if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
+            rm -f "$FINANCE_FILE"
+            echo "All records cleared."
+        else
+            echo "Clear action canceled."
+        fi
+        ;;
+
+    help)
+        user_guide
+        ;;
+
+    *)
+        echo "Invalid argument: $action"
+        echo ""
+        user_guide
+        ;;
+esac
