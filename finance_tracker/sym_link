@@ -1,0 +1,83 @@
+first check PATH variable  
+
+
+check PATH
+echo $PATH
+
+/usr/local/bin is most suitable and can be used system wide
+
+
+To make symbolic link
+syntax:
+
+sudo ln -s  <absolute_path_of_ft>  /usr/local/bin/ft
+
+example
+sudo ln -s /home/ubuntu/bash/finance_tracker/ft_2 /usr/local/bin/ft
+
+permissions:
+
+sudo chmod +x ft
+
+Example output after symbolic link:
+
+ubuntu@ip-172-31-33-44:~/bash/finance_tracker$ ft
+Invalid argument:
+
+Finance Tracker - User Guide
+====================================
+
+Usage:
+  ft <action> [record]
+
+Actions:
+  add    <record>    Add a new record (example: "Chipotle -12.50")
+  remove <record>    Remove a record by description
+  view               View all records
+  clear              Remove all records (confirmation required)
+  help               Show this guide
+
+Examples:
+  ft add "Starbucks -5.75"
+  ft remove "Starbucks -5.75"
+  ft view
+  ft clear
+  ft help
+
+
+
+
+checkk from other users as well
+
+1) create user :
+sudo adduser username
+
+2) switch user:
+sudo su - username
+
+3) test:
+ft #if it works means syslink is working fine
+
+
+Possible issue fix:
+possible error : command not found
+
+check permissions of folder where original ft file is located
+
+let's suppose , ft is stored in
+
+/home/ubuntu/bash/finance_tracker/ft
+
+every folder should be having rx permission for other users.
+
+check permissions of each folder using 
+ls -l command
+
+if any folder don't have rx for other give permissions 
+using sudo chmod o+rx folder
+example :
+
+sudo chmod o+rx /home/ubuntu
+sudo chmod o+rx /home/ubuntu/bash
+sudo chmod o+rx /home/ubuntu/bash/finance_tracker
+sudo chmod o+rx /home/ubuntu/bash/finance_tracker/ft
