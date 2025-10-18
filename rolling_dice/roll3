@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # Step 3: Take max number as an argument
 
 if [ $# -lt 1 ]; then
