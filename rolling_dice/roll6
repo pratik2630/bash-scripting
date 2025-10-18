@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # Step 6: Two args = dice count & sides
 
 is_int() {
