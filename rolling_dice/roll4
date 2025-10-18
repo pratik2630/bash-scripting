@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # Step 4: Require >1, prompt if not given
 
 if [ $# -ge 1 ] && [[ $1 =~ ^[0-9]+$ ]] && [ "$1" -gt 1 ]; then
