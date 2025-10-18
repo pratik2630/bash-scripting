@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # Step 2: Prompt for max number
 
 read -rp "Enter a maximum number: " max
